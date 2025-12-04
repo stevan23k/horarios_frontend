@@ -1,0 +1,49 @@
+<div class="flex items-center justify-center min-h-screen from-blue-50 to-indigo-100">
+    <div class="w-full max-w-md p-8 bg-white  rounded-2xl shadow-xl">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Crear Horario</h2>
+
+        <form [formGroup]="horariosForm" (ngSubmit)="createHorario()" class="space-y-6">
+            @if(mensajeError){
+            <div class="flex justify-center relative">
+                <p-message severity="error" class=" w-full md:w-80 text-center ">{{mensajeError}}</p-message>
+            </div>
+            }
+
+            <div class="relative justify-center flex">
+                <p-select [options]="dias" formControlName="dia" [checkmark]="true" optionLabel="dia"
+                    optionValue="value" [showClear]="true" placeholder="selecciona el dia" class="w-full md:w-80" />
+            </div>
+            <div class="relative justify-center flex">
+                <p-select [options]="horas" formControlName="hora_inicio" [checkmark]="true" optionLabel="hora"
+                    optionValue="value" [showClear]="true" placeholder="selecciona la hora de inicio"
+                    class="w-full md:w-80" />
+            </div>
+
+            <div class="relative justify-center flex">
+                <p-select [options]="horas" formControlName="hora_fin" [checkmark]="true" optionLabel="hora"
+                    optionValue="value" [showClear]="true" placeholder="selecciona la hora de fin"
+                    class="w-full md:w-80" />
+            </div>
+
+            <div class="relative justify-center flex">
+                <p-select [options]="asignaturas" formControlName="asignaturas" [checkmark]="true" optionLabel="nombre"
+                    optionValue="id" [showClear]="true" placeholder="selecciona la materia" class="w-full md:w-80" />
+            </div>
+
+
+            <div class="pt-2 mt-10">
+                <p-button label="crear horario" type="submit" [disabled]="!horariosForm.valid"
+                    styleClass="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" />
+            </div>
+
+        </form>
+        <div class="text-center">
+            <p class="text-sm text-gray-600">
+                crear asignaturas si no tienes disponibles<a class="ml-1 text-indigo-600"
+                    routerLink="/create/asignaturas">crear</a>
+            </p>
+        </div>
+
+
+    </div>
+</div>
