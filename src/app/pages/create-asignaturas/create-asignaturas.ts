@@ -1,5 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormsModule,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { AutoFocusModule } from 'primeng/autofocus';
@@ -11,7 +17,8 @@ import { HorariosService } from '../../services/horarios/horarios-service';
 
 @Component({
   selector: 'app-create-asignaturas',
-  imports: [ReactiveFormsModule,
+  imports: [
+    ReactiveFormsModule,
     FormsModule,
     RouterModule,
     InputTextModule,
@@ -19,24 +26,24 @@ import { HorariosService } from '../../services/horarios/horarios-service';
     AutoFocusModule,
     PasswordModule,
     ButtonModule,
-    SelectModule
+    SelectModule,
   ],
   templateUrl: './create-asignaturas.html',
   styleUrl: './create-asignaturas.css',
 })
 export class CreateAsignaturas {
-  horariosSrv = inject(HorariosService)
-  router = inject(Router)
+  horariosSrv = inject(HorariosService);
+  router = inject(Router);
   createForm: FormGroup = new FormGroup({
     nombre: new FormControl('', { validators: [Validators.required] }),
     descripcion: new FormControl('', { validators: [Validators.required] }),
     max_hora_semana: new FormControl({ validators: [Validators.required] }),
-  })
+  });
   horas = [
-    { hora: "3", value: 3 },
-    { hora: "4", value: 4 },
-    { hora: "5", value: 5 },
-  ]
+    { hora: '3', value: 3 },
+    { hora: '4', value: 4 },
+    { hora: '5', value: 5 },
+  ];
 
   createAsignatura() {
     this.horariosSrv.createAsignatura(this.createForm.value).subscribe({
@@ -49,8 +56,7 @@ export class CreateAsignaturas {
       },
       error: (err) => {
         alert('Error al crear la asignatura');
-      }
-    })
+      },
+    });
   }
-
 }

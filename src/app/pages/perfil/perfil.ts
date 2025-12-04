@@ -1,5 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ReactiveFormsModule, FormControl, FormGroup, ɵInternalFormsSharedModule } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormControl,
+  FormGroup,
+  ɵInternalFormsSharedModule,
+} from '@angular/forms';
 import { AuthService } from '../../services/auth/auth-service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -19,15 +24,16 @@ import { ButtonModule } from 'primeng/button';
     FloatLabelModule,
     AutoFocusModule,
     PasswordModule,
-    ButtonModule],
+    ButtonModule,
+  ],
   templateUrl: './perfil.html',
   styleUrl: './perfil.css',
   standalone: true,
 })
 export class Perfil implements OnInit {
-  authSrv = inject(AuthService)
-  route = inject(ActivatedRoute)
-  router = inject(Router)
+  authSrv = inject(AuthService);
+  route = inject(ActivatedRoute);
+  router = inject(Router);
 
   user: any = null;
 
@@ -36,8 +42,7 @@ export class Perfil implements OnInit {
     apellidos: new FormControl(''),
     email: new FormControl(''),
     password: new FormControl(''),
-  })
-
+  });
 
   ngOnInit(): void {
     this.getPerfil();
@@ -53,7 +58,7 @@ export class Perfil implements OnInit {
       },
       error: (err) => {
         console.log(err);
-      }
+      },
     });
   }
 
@@ -67,8 +72,8 @@ export class Perfil implements OnInit {
             nombres: this.user.nombres,
             apellidos: this.user.apellidos,
             email: this.user.email,
-            password: ''
-          })
+            password: '',
+          });
         }
         if (data.status == 401) {
           console.log('No se encontró el usuario');
@@ -79,8 +84,7 @@ export class Perfil implements OnInit {
         if (err.status == 401) {
           this.router.navigate(['login']);
         }
-      }
-    })
-
+      },
+    });
   }
 }

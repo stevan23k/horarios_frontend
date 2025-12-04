@@ -13,7 +13,6 @@ import { ButtonModule } from 'primeng/button';
   imports: [RouterModule, MenuModule, ButtonModule],
   templateUrl: './home.html',
   styleUrl: './home.css',
-
 })
 export class Home implements OnInit {
   private HorariosSrv = inject(HorariosService);
@@ -32,17 +31,18 @@ export class Home implements OnInit {
   ];
 
   private diasMap: { [key: string]: number } = {
-    'lunes': 1,
-    'martes': 2,
-    'miércoles': 3,
-    'miercoles': 3,
-    'jueves': 4,
-    'viernes': 5,
+    lunes: 1,
+    martes: 2,
+    miércoles: 3,
+    miercoles: 3,
+    jueves: 4,
+    viernes: 5,
   };
 
   ngOnInit(): void {
-    setTimeout(() => { this.getElements(); }, 100);
-
+    setTimeout(() => {
+      this.getElements();
+    }, 100);
   }
 
   getElements() {
@@ -61,12 +61,11 @@ export class Home implements OnInit {
             return a.hora_inicio.localeCompare(b.hora_inicio);
           });
           this.crv.detectChanges();
-          return
+          return;
         }
       },
       error: (err) => {
         console.error('Error al cargar horarios:', err);
-
       },
     });
   }
@@ -77,7 +76,7 @@ export class Home implements OnInit {
   }
 
   getHorariosDelDia(diaIndex: number): horarios[] {
-    return this.list.filter(item => this.getDiaIndex(item.dia) === diaIndex);
+    return this.list.filter((item) => this.getDiaIndex(item.dia) === diaIndex);
   }
 
   editPerfil() {
@@ -91,8 +90,8 @@ export class Home implements OnInit {
       },
       error: (err) => {
         alert('Error al cargar el perfil');
-      }
-    })
+      },
+    });
   }
 
   createHorario() {
@@ -109,7 +108,7 @@ export class Home implements OnInit {
       },
       error: (err) => {
         console.error('Error al cerrar sesión:', err);
-      }
+      },
     });
   }
 
@@ -123,7 +122,7 @@ export class Home implements OnInit {
       },
       error: (err) => {
         alert('Error al eliminar el horario');
-      }
-    })
+      },
+    });
   }
 }

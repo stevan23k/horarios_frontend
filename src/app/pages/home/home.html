@@ -1,98 +1,118 @@
 @if (list.length === 0) {
-<div class="flex items-center justify-center min-h-screen">
+  <div class="flex items-center justify-center min-h-screen">
     <div class="text-center">
-        <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
-        <p class="text-lg text-gray-600">Cargando horarios...</p>
+      <div
+        class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"
+      ></div>
+      <p class="text-lg text-gray-600">Cargando horarios...</p>
     </div>
-</div>
-}
-@else {
-<div class="relative min-h-screen">
-
+  </div>
+} @else {
+  <div class="relative min-h-screen">
     <div class="fixed top-0 right-20 z-10">
-        <i class="pi pi-user flex p-10 cursor-pointer transition-colors duration-200 hover:text-blue-600"
-            style="font-size: 1.5rem;" (click)="editPerfil()" title="Cerrar sesión"></i>
+      <i
+        class="pi pi-user flex p-10 cursor-pointer transition-colors duration-200 hover:text-blue-600"
+        style="font-size: 1.5rem"
+        (click)="editPerfil()"
+        title="Cerrar sesión"
+      ></i>
     </div>
 
     <div class="fixed top-0 right-0 z-10">
-        <i class="pi pi-sign-out flex p-10 cursor-pointer transition-colors duration-200 hover:text-red-600"
-            style="font-size: 1.5rem;" (click)="logout()" title="Cerrar sesión"></i>
+      <i
+        class="pi pi-sign-out flex p-10 cursor-pointer transition-colors duration-200 hover:text-red-600"
+        style="font-size: 1.5rem"
+        (click)="logout()"
+        title="Cerrar sesión"
+      ></i>
     </div>
 
-    <div class=" fixed right-55 bottom-20">
-        <p-button (click)="createAsignaturas()" label="agregar materia" severity="info" [rounded]="true" />
+    <div class="fixed right-55 bottom-20">
+      <p-button
+        (click)="createAsignaturas()"
+        label="agregar materia"
+        severity="info"
+        [rounded]="true"
+      />
     </div>
 
     <div class="fixed right-20 bottom-20">
-        <p-button (click)="createHorario()" label="hacer horario" [rounded]="true" severity="info" />
+      <p-button (click)="createHorario()" label="hacer horario" [rounded]="true" severity="info" />
     </div>
 
     <div class="max-w-7xl mx-auto p-6 pt-20">
-        <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Horario Semanal</h2>
+      <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Horario Semanal</h2>
 
-        <div class="grid grid-cols-5 gap-4 mb-4">
-            @for (dia of diasDeLaSemana; track dia.index) {
-            <div class="p-3  from-blue-500 to-blue-600 rounded-lg shadow-md">
-                <p class="text-center font-semibold text-white">{{ dia.nombre }}</p>
-            </div>
-            }
-        </div>
+      <div class="grid grid-cols-5 gap-4 mb-4">
+        @for (dia of diasDeLaSemana; track dia.index) {
+          <div class="p-3 from-blue-500 to-blue-600 rounded-lg shadow-md">
+            <p class="text-center font-semibold text-white">{{ dia.nombre }}</p>
+          </div>
+        }
+      </div>
 
-        <div class="grid grid-cols-5 gap-4">
-            @for (dia of diasDeLaSemana; track dia.index) {
-            <div class="min-h-[300px] bg-white rounded-lg shadow-sm p-3 space-y-3">
-                @for (item of list; track item.id) {
-                @if (getDiaIndex(item.dia) === dia.index) {
+      <div class="grid grid-cols-5 gap-4">
+        @for (dia of diasDeLaSemana; track dia.index) {
+          <div class="min-h-[300px] bg-white rounded-lg shadow-sm p-3 space-y-3">
+            @for (item of list; track item.id) {
+              @if (getDiaIndex(item.dia) === dia.index) {
                 <div
-                    class="p-4 rounded-xl shadow-md from-blue-50 to-blue-100 border-l-4 border-blue-500 hover:shadow-lg transition-shadow duration-200">
-                    <p class="font-bold text-blue-800 mb-2 text-lg">
-                        @if(!item.asignatura.nombre) {
-                    <p>sin asignar</p>
+                  class="p-4 rounded-xl shadow-md from-blue-50 to-blue-100 border-l-4 border-blue-500 hover:shadow-lg transition-shadow duration-200"
+                >
+                  <p class="font-bold text-blue-800 mb-2 text-lg">
+                    @if (!item.asignatura.nombre) {
+                      <p>sin asignar</p>
+                    } @else {
+                      {{ item.asignatura.nombre }}
                     }
-                    @else{
-                    {{ item.asignatura.nombre }}
-                    }
+                  </p>
+
+                  <div class="flex items-center gap-2 mb-2">
+                    <i class="pi pi-clock text-gray-600 text-sm"></i>
+                    <p class="text-sm font-medium text-gray-700">
+                      {{ item.hora_inicio.substring(0, 5) }} - {{ item.hora_fin.substring(0, 5) }}
                     </p>
+                  </div>
 
-                    <div class="flex items-center gap-2 mb-2">
-                        <i class="pi pi-clock text-gray-600 text-sm"></i>
-                        <p class="text-sm font-medium text-gray-700">
-                            {{ item.hora_inicio.substring(0, 5) }} - {{ item.hora_fin.substring(0, 5) }}
-                        </p>
-                    </div>
+                  <div class="flex items-center gap-2 mb-1">
+                    <i class="pi pi-user text-gray-600 text-sm"></i>
+                    <p class="text-sm text-gray-600">
+                      {{ item.usuario.nombres }} {{ item.usuario.apellidos }}
+                    </p>
+                  </div>
 
-                    <div class="flex items-center gap-2 mb-1">
-                        <i class="pi pi-user text-gray-600 text-sm"></i>
-                        <p class="text-sm text-gray-600">
-                            {{ item.usuario.nombres }} {{ item.usuario.apellidos }}
-                        </p>
-                    </div>
-
-                    @if (item.asignatura.descripcion) {
+                  @if (item.asignatura.descripcion) {
                     <p class="text-xs text-gray-500 mt-2 italic">
-                        {{ item.asignatura.descripcion }}
+                      {{ item.asignatura.descripcion }}
                     </p>
-                    <p-button (click)="deleteHorario(item.id)" icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" />
-                    }
+                    <p-button
+                      (click)="deleteHorario(item.id)"
+                      icon="pi pi-times"
+                      [rounded]="true"
+                      [text]="true"
+                      severity="danger"
+                    />
+                  }
                 </div>
-                }
-                }
-
-                @if (getHorariosDelDia(dia.index).length === 0) {
-                <div class="flex items-center justify-center h-full">
-                    <p class="text-gray-400 text-sm text-center">Sin clases programadas</p>
-                </div>
-                }
-            </div>
+              }
             }
-        </div>
 
-        <div class="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
-            <p class="text-sm text-gray-600 text-center">
-                <i class="pi pi-info-circle mr-2"></i>
-                Total de clases programadas: <span class="font-semibold">{{ list.length }}</span>
-            </p>
-        </div>
+            @if (getHorariosDelDia(dia.index).length === 0) {
+              <div class="flex items-center justify-center h-full">
+                <p class="text-gray-400 text-sm text-center">Sin clases programadas</p>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
+        <p class="text-sm text-gray-600 text-center">
+          <i class="pi pi-info-circle mr-2"></i>
+          Total de clases programadas: <span class="font-semibold">{{ list.length }}</span>
+        </p>
+      </div>
     </div>
-</div>
+  </div>
 }
+
